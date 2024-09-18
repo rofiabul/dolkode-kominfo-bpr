@@ -18,37 +18,146 @@ class MainPage extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Menu1();
-                }));
-              },
-              child: Text('Menu 1'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Menu2();
-                }));
-              },
-              child: Text('Menu 2'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Menu3();
-                }));
-              },
-              child: Text('Menu 3'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Menu4();
-                }));
-              },
-              child: Text('Menu 4'),
+            Container(
+                child: Card(
+                    color: Colors.amber,
+                    child: ListTile(
+                      title: Text('Rofi Abul Hasani'),
+                      subtitle: Text('Admin'),
+                      leading: Icon(Icons.home),
+                      textColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                    ))),
+            Expanded(
+              child: GridView.count(
+                primary: false,
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 15,
+                mainAxisSpacing: 15,
+                crossAxisCount: 2,
+                children: [
+                  TextButton(
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.pink,
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.app_registration,
+                            size: 62,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Antrian",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onPressed: () {
+                      print('Web View');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Menu1()));
+                    },
+                  ),
+                  TextButton(
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.pink,
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.date_range_rounded,
+                            size: 62,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "WebView",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Menu2()));
+                    },
+                  ),
+                  TextButton(
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.pink,
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.settings_system_daydream_sharp,
+                            size: 62,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Get Data",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Menu4()));
+                    },
+                  ),
+                  TextButton(
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.pink,
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add_to_queue,
+                            size: 62,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Aplikasi D",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             )
           ],
         ),

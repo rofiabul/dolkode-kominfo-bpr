@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class Menu2 extends StatelessWidget {
-  const Menu2({super.key});
+  final controllerWebView = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.disabled)
+    ..loadRequest(Uri.parse('https://moca.unimma.ac.id/'));
+
+  // const Menu2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,19 +15,7 @@ class Menu2 extends StatelessWidget {
         title: Text('Halaman Menu 2'),
         backgroundColor: Colors.blue,
       ),
-      body: Column(
-        children: [
-          Center(
-            child: Text('Halaman Menu 2'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Kembali'),
-          ),
-        ],
-      ),
+      body: WebViewWidget(controller: controllerWebView),
     );
   }
 }
