@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/mainpage.dart';
 import 'package:myapp/menu1.dart';
+import 'package:myapp/registrationPage.dart';
 // untuk package api
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -184,7 +185,12 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {}, // Mengaitkan fungsi register
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return RegistrationPage();
+                      }));
+                    }, // Mengaitkan fungsi register
                     child: Text(
                       'Register',
                       style: TextStyle(
