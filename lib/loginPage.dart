@@ -20,16 +20,20 @@ class _LoginPageState extends State<LoginPage> {
   String urlApi = 'https://fakestoreapi.com/auth/login';
 
   Future<void> loginApi(BuildContext context) async {
-    final response = await http.post(Uri.parse(urlApi),
-        body: {'username': 'donero123123', 'password': 'ewedon123231'});
+    final response = await http.post(Uri.parse(urlApi), body: {
+      'username': _usernameController.text,
+      'password': _passwordController.text
+    });
+
+    print(_usernameController.text + 'password' + _passwordController.text);
     if (response.statusCode == 200) {
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => MainPage(),
           ));
     } else {
-      print('Login failed: ${response.statusCode}');
+      print('Login gagal masuk: ${response.statusCode}');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.red,
@@ -53,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
             'Kolom harus diisi semua',
             textAlign: TextAlign.center,
           ),
-          backgroundColor: Colors.purple,
+          backgroundColor: Colors.red,
         ),
       );
       return;
@@ -124,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 41, 46, 91),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -180,9 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      loginApi(context);
-                    }, // Mengaitkan fungsi register
+                    onPressed: () {}, // Mengaitkan fungsi register
                     child: Text(
                       'Register',
                       style: TextStyle(
@@ -192,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(150, 40),
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Color.fromARGB(255, 41, 46, 91),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -202,7 +204,9 @@ class _LoginPageState extends State<LoginPage> {
                     width: 20,
                   ),
                   ElevatedButton(
-                    onPressed: _login,
+                    onPressed: () {
+                      loginApi(context);
+                    },
                     child: Text(
                       'Login',
                       style: TextStyle(
@@ -212,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(150, 40),
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Color.fromARGB(255, 41, 46, 91),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

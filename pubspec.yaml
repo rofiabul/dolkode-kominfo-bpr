@@ -39,7 +39,7 @@ dependencies:
   pretty_qr_code: ^3.2.1
   # webview_flutter: ^4.8.0
   webview_flutter: ^4.4.2
-  http: ^0.12.2
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
