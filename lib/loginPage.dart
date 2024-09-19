@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/mainpage.dart';
 import 'package:myapp/menu1.dart';
+// untuk package api
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,6 +17,28 @@ class _LoginPageState extends State<LoginPage> {
 
   // Untuk menampilkan pesan error
   String _errorMessage = '';
+  String urlApi = 'https://fakestoreapi.com/auth/login';
+
+  Future<void> loginApi(BuildContext context) async {
+    final response = await http.post(Uri.parse(urlApi),
+        body: {'username': 'donero123123', 'password': 'ewedon123231'});
+    if (response.statusCode == 200) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(),
+          ));
+    } else {
+      print('Login failed: ${response.statusCode}');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+              'Login failed: Server error' + response.statusCode.toString()),
+        ),
+      );
+    }
+  }
 
   // Fungsi untuk menangani login
   void _login() {
@@ -28,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
             'Kolom harus diisi semua',
             textAlign: TextAlign.center,
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.purple,
         ),
       );
       return;
@@ -99,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -110,16 +135,16 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
               Image.asset(
-                'assets/images/logo.jpeg',
+                'assets/image/logo-presensimu.png',
                 fit: BoxFit.cover,
-                height: 150,
+                height: 80,
               ),
               SizedBox(height: 20),
               TextFormField(
                 controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
-                  hintText: 'Jokowi',
+                  hintText: 'Username',
                   prefixIcon: Icon(Icons.person),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -155,7 +180,9 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: _register, // Mengaitkan fungsi register
+                    onPressed: () {
+                      loginApi(context);
+                    }, // Mengaitkan fungsi register
                     child: Text(
                       'Register',
                       style: TextStyle(
@@ -165,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(150, 40),
-                      backgroundColor: Colors.red,
+                      backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -185,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(150, 40),
-                      backgroundColor: Colors.red,
+                      backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
