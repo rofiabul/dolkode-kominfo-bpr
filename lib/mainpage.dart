@@ -3,15 +3,23 @@ import 'package:myapp/menu1.dart';
 import 'package:myapp/menu2.dart';
 import 'package:myapp/menu3.dart';
 import 'package:myapp/menu4.dart';
+import 'package:myapp/main.dart';
+import 'package:myapp/loginPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
   @override
+  Future _clearToken() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.remove('token');
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Halaman Utama'),
+        title: const Text('Halaman Utama'),
         backgroundColor: Colors.blue,
       ),
       body: Padding(
@@ -22,9 +30,22 @@ class MainPage extends StatelessWidget {
                 child: Card(
                     color: Colors.amber,
                     child: ListTile(
-                      title: Text('Rofi Abul Hasani'),
-                      subtitle: Text('Admin'),
-                      leading: Icon(Icons.home),
+                      title: const Text('Rofi Abul Hasani'),
+                      subtitle: const Text('Admin'),
+                      leading: const Icon(Icons.home),
+                      trailing: TextButton(
+                        child: const Icon(
+                          Icons.logout_outlined,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          _clearToken();
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()));
+                        },
+                      ),
                       textColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
@@ -42,20 +63,20 @@ class MainPage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.pink,
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.app_registration,
                             size: 62,
                             color: Colors.white,
                           ),
                           Text(
-                            "Antrian",
-                            style: TextStyle(
+                            'qr code',
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold),
@@ -65,18 +86,20 @@ class MainPage extends StatelessWidget {
                     ),
                     onPressed: () {
                       print('Web View');
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Menu1()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Menu1()));
                     },
                   ),
                   TextButton(
                     child: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.pink,
                           borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -103,10 +126,10 @@ class MainPage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.pink,
                           borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -133,10 +156,10 @@ class MainPage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.pink,
                           borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -164,7 +187,7 @@ class MainPage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         // Handle taps on the tabs
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',

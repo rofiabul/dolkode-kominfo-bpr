@@ -7,19 +7,19 @@ class Menu3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Halaman Menu 3'),
+        title: const Text('Halaman Menu 3'),
         backgroundColor: Colors.blue,
       ),
       body: Column(
         children: [
-          Center(
+          const Center(
             child: Text('Halaman Menu 3'),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('Kembali'),
+            child: const Text('Kembali'),
           ),
         ],
       ),

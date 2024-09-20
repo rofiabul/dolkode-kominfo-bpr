@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
             appBar: AppBar(
-              leading: Icon(Icons.menu),
-              title: Text('Flutter Demo Home Page'),
+              leading: const Icon(Icons.menu),
+              title: const Text('Flutter Demo Home Page'),
               backgroundColor: Colors.blue,
             ),
             body: Stack(
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
                   color: Colors.amber,
                 ),
                 Container(
-                  margin: EdgeInsets.all(100),
+                  margin: const EdgeInsets.all(100),
                   height: 200,
                   width: 200,
                   color: Colors.blue,

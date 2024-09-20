@@ -19,11 +19,11 @@ class _Menu1State extends State<Menu1> {
     setState(() {
       antrian = antrian + 1;
       int angka = 100000 + antrian;
-      kode_registrasi = "PLU" + angka.toString();
+      kode_registrasi = "PLU$angka";
     });
   }
 
-  String _counter = 'Halaman 1';
+  final String _counter = 'Halaman 1';
   void ChangePage() {
     setState(() {
       antrian = antrian++;
@@ -34,17 +34,20 @@ class _Menu1State extends State<Menu1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('presensi'),
+      ),
       body: Column(
         children: [
           Center(
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
                   height: 100,
                   width: 100,
                   child: PrettyQrView.data(
-                    data: '$kode_registrasi',
+                    data: kode_registrasi,
                     decoration: PrettyQrDecoration(),
                   ),
                 ),
@@ -56,7 +59,7 @@ class _Menu1State extends State<Menu1> {
             onPressed: () {
               ChangePage();
             },
-            child: Text('Daftar Antrian'),
+            child: const Text('Daftar Antrian'),
           ),
         ],
       ),

@@ -6,7 +6,11 @@ import 'package:myapp/registrationPage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -17,8 +21,14 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   // Untuk menampilkan pesan error
-  String _errorMessage = '';
+  final String _errorMessage = '';
   String urlApi = 'https://fakestoreapi.com/auth/login';
+
+  Future<void> SaveToken(String val) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('token', val);
+    print(pref.getString('token'));
+  }
 
   Future<void> loginApi(BuildContext context) async {
     final response = await http.post(Uri.parse(urlApi), body: {
@@ -26,20 +36,22 @@ class _LoginPageState extends State<LoginPage> {
       'password': _passwordController.text
     });
 
-    print(_usernameController.text + 'password' + _passwordController.text);
+    print('${_usernameController.text}password${_passwordController.text}');
     if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      await SaveToken(data['token']);
+
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => MainPage(),
+            builder: (context) => const MainPage(),
           ));
     } else {
       print('Login gagal masuk: ${response.statusCode}');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.red,
-          content: Text(
-              'Login failed: Server error' + response.statusCode.toString()),
+          content: Text('Login failed: Server error${response.statusCode}'),
         ),
       );
     }
@@ -53,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
     if (username.isEmpty || password.isEmpty) {
       // Menampilkan SnackBar jika ada kolom yang kosong
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             'Kolom harus diisi semua',
             textAlign: TextAlign.center,
@@ -69,13 +81,13 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MainPage(),
+          builder: (context) => const MainPage(),
         ),
       );
     } else {
       // Jika login gagal, tampilkan pesan error
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             'Username atau Password salah.',
             textAlign: TextAlign.center,
@@ -98,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // Untuk saat ini, tampilkan SnackBar
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text(
           'Fitur Register belum tersedia.',
           textAlign: TextAlign.center,
@@ -120,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text(
             'Halaman Login',
             style: TextStyle(
@@ -129,14 +141,14 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 41, 46, 91),
+        backgroundColor: const Color.fromARGB(255, 41, 46, 91),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0), // Menambahkan padding yang cukup
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Image.asset(
@@ -144,32 +156,32 @@ class _LoginPageState extends State<LoginPage> {
                 fit: BoxFit.cover,
                 height: 80,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
                   hintText: 'Username',
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: const Icon(Icons.person),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   hintText: '****',
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.lock),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               // Menampilkan pesan error jika ada
@@ -188,9 +200,16 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return RegistrationPage();
+                        return const RegisterPage();
                       }));
-                    }, // Mengaitkan fungsi register
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(150, 40),
+                      backgroundColor: const Color.fromARGB(255, 41, 46, 91),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ), // Mengaitkan fungsi register
                     child: Text(
                       'Register',
                       style: TextStyle(
@@ -198,33 +217,26 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(150, 40),
-                      backgroundColor: Color.fromARGB(255, 41, 46, 91),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   ElevatedButton(
                     onPressed: () {
                       loginApi(context);
                     },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(150, 40),
+                      backgroundColor: const Color.fromARGB(255, 41, 46, 91),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                     child: Text(
                       'Login',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(150, 40),
-                      backgroundColor: Color.fromARGB(255, 41, 46, 91),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),

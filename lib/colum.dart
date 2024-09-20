@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           appBar: AppBar(
-            leading: Icon(Icons.menu),
-            title: Text('Flutter Demo Home Page'),
+            leading: const Icon(Icons.menu),
+            title: const Text('Flutter Demo Home Page'),
             backgroundColor: Colors.blue,
           ),
           body: Column(
@@ -27,10 +27,10 @@ class MyApp extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 50,
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     color: Colors.amber,
-                    child: Text(
+                    child: const Text(
                       'A',
                       style: TextStyle(
                           color: Colors.blue,
@@ -41,10 +41,10 @@ class MyApp extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 50,
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     color: Colors.amber,
-                    child: Text(
+                    child: const Text(
                       'B',
                       style: TextStyle(
                           color: Colors.blue,
@@ -55,10 +55,10 @@ class MyApp extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 50,
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     color: Colors.amber,
-                    child: Text(
+                    child: const Text(
                       'C',
                       style: TextStyle(
                           color: Colors.blue,
@@ -69,10 +69,10 @@ class MyApp extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 50,
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     color: Colors.amber,
-                    child: Text(
+                    child: const Text(
                       'D',
                       style: TextStyle(
                           color: Colors.blue,
@@ -87,10 +87,10 @@ class MyApp extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 50,
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     color: Colors.amber,
-                    child: Text(
+                    child: const Text(
                       'E',
                       style: TextStyle(
                           color: Colors.blue,
@@ -101,10 +101,10 @@ class MyApp extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 50,
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     color: Colors.amber,
-                    child: Text(
+                    child: const Text(
                       'F',
                       style: TextStyle(
                           color: Colors.blue,
@@ -115,10 +115,10 @@ class MyApp extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 50,
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     color: Colors.amber,
-                    child: Text(
+                    child: const Text(
                       'G',
                       style: TextStyle(
                           color: Colors.blue,
@@ -129,10 +129,10 @@ class MyApp extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 50,
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     color: Colors.amber,
-                    child: Text(
+                    child: const Text(
                       'H',
                       style: TextStyle(
                           color: Colors.blue,
@@ -146,7 +146,7 @@ class MyApp extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {},
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
         ));
   }

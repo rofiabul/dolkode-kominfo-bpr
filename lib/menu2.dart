@@ -6,13 +6,15 @@ class Menu2 extends StatelessWidget {
     ..setJavaScriptMode(JavaScriptMode.disabled)
     ..loadRequest(Uri.parse('https://moca.unimma.ac.id/'));
 
+  Menu2({super.key});
+
   // const Menu2({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Halaman Menu 2'),
+        title: const Text('Halaman Menu 2'),
         backgroundColor: Colors.blue,
       ),
       body: WebViewWidget(controller: controllerWebView),

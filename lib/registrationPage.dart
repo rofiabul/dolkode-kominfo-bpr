@@ -1,123 +1,165 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/loginPage.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert'; // Untuk JSON encoding dan decoding
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _RegisterPageState extends State<RegisterPage> {
+  // Deklarasi TextEditingController
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
+// Fungsi Register
+  Future<void> _register() async {
+    String username = _usernameController.text.trim();
+    String email = _passwordController.text.trim();
+    String password = _emailController.text.trim();
+
+    if (username.isEmpty || email.isEmpty || password.isEmpty) {
+      _showDialog('Error', 'Semua field registrasi harus diisi.');
+      return;
+    }
+
+    String url = 'https://66eba10a2b6cf2b89c5b1df9.mockapi.io/presensimu/users';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "name": username,
+          "email": email,
+          "password": password,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        // Registrasi berhasil
+        _showDialog('Success', 'Registrasi berhasil! Silakan login.');
+        // Clear the registration fields
+        _usernameController.clear();
+        _passwordController.clear();
+        _emailController.clear();
+      } else {
+        _showDialog('Error',
+            'Gagal melakukan registrasi. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      _showDialog('Error', 'Terjadi kesalahan: $e');
+    }
+  }
+
+  // Fungsi untuk menampilkan dialog
+  void _showDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registrasi'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          'Halaman Register',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.red,
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0), // Menambahkan padding yang cukup
           child: Column(
             children: [
-              SizedBox(
-                height: 20,
-              ),
-              Image.asset(
-                'assets/image/logo-presensimu.png',
-                fit: BoxFit.cover,
-                height: 80,
-              ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
-                  hintText: 'Username',
-                  prefixIcon: Icon(Icons.person),
+                  hintText: 'Jokowi',
+                  prefixIcon: const Icon(Icons.person),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               TextFormField(
-                controller: _passwordController,
-                obscureText: true,
+                controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  hintText: 'email@gmail.com',
-                  prefixIcon: Icon(Icons.email),
+                  hintText: 'admin@mail.com',
+                  prefixIcon: const Icon(Icons.email),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   hintText: '****',
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.lock),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return LoginPage();
-                      }));
-                    }, // Mengaitkan fungsi register
-                    child: Text(
-                      'Kembali',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    onPressed: _register,
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(150, 40),
-                      backgroundColor: Color.fromARGB(255, 41, 46, 91),
+                      minimumSize: const Size(150, 40),
+                      backgroundColor: Colors.red,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // loginApi(context);
-                    },
+                    ), // Mengaitkan fungsi register
                     child: Text(
-                      'Simpan',
+                      'Register',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(150, 40),
-                      backgroundColor: Color.fromARGB(255, 41, 46, 91),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
